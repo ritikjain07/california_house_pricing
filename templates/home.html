@@ -345,11 +345,11 @@
         
         <div class="data-guide">
           <h3><i class="fas fa-info-circle"></i> Input Guide</h3>
-          <p><strong>Median Income:</strong> In tens of thousands ($10,000s) of USD</p>
-          <p><strong>House Age:</strong> Age of the house in years</p>
-          <p><strong>Rooms/Bedrooms:</strong> Average per household in the block</p>
-          <p><strong>Population:</strong> Number of people in the census block</p>
-          <p><strong>Occupancy:</strong> Average people per household</p>
+          <p><strong>Income Level:</strong> In tens of thousands ($10,000s) of USD</p>
+          <p><strong>Property Age:</strong> Age of the house in years</p>
+          <p><strong>Rooms/Bedrooms:</strong> Number per household in the neighborhood</p>
+          <p><strong>Neighborhood Population:</strong> Number of people in the area</p>
+          <p><strong>Household Occupancy:</strong> People per household</p>
           <p><strong>Latitude/Longitude:</strong> CA coordinates (Lat: 32.5-42.0, Long: -124.6 to -114.1)</p>
         </div>
       </div>
@@ -366,10 +366,10 @@
         <div class="form-grid">
           <div class="form-group">
             <label for="MedInc">
-              Median Income
+              Income Level
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Enter in tens of thousands ($10,000s). Example: For $60,000 annual income, enter 6.0</span>
+                <span class="tooltip-text">Enter income in tens of thousands ($10,000s). Example: For $60,000 annual income, enter 6.0</span>
               </span>
             </label>
             <input type="number" id="MedInc" name="MedInc" step="0.01" placeholder="e.g. 6.0" required />
@@ -379,10 +379,10 @@
 
           <div class="form-group">
             <label for="HouseAge">
-              House Age
+              Property Age
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Age of the house in years</span>
+                <span class="tooltip-text">Age of the property in years</span>
               </span>
             </label>
             <input type="number" id="HouseAge" name="HouseAge" step="0.1" placeholder="e.g. 15.0" required />
@@ -392,10 +392,10 @@
 
           <div class="form-group">
             <label for="AveRooms">
-              Average Rooms
+              Rooms
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Average number of rooms per household in the block</span>
+                <span class="tooltip-text">Number of rooms per household in the neighborhood</span>
               </span>
             </label>
             <input type="number" id="AveRooms" name="AveRooms" step="0.1" placeholder="e.g. 5.6" required />
@@ -405,10 +405,10 @@
 
           <div class="form-group">
             <label for="AveBedrms">
-              Average Bedrooms
+              Bedrooms
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Average number of bedrooms per household in the block</span>
+                <span class="tooltip-text">Number of bedrooms per household in the neighborhood</span>
               </span>
             </label>
             <input type="number" id="AveBedrms" name="AveBedrms" step="0.1" placeholder="e.g. 2.4" required />
@@ -418,23 +418,23 @@
 
           <div class="form-group">
             <label for="Population">
-              Population
+              Neighborhood Population
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Total number of people living in the block</span>
+                <span class="tooltip-text">Total number of people living in the neighborhood</span>
               </span>
             </label>
             <input type="number" id="Population" name="Population" placeholder="e.g. 1200" required />
             <div class="input-icon"><i class="fas fa-users"></i></div>
-            <span class="unit-hint">people in block</span>
+            <span class="unit-hint">people</span>
           </div>
 
           <div class="form-group">
             <label for="AveOccup">
-              Average Occupancy
+              Household Occupancy
               <span class="tooltip">
                 <i class="fas fa-question-circle"></i>
-                <span class="tooltip-text">Average number of people per household in the block</span>
+                <span class="tooltip-text">Number of people per household in the neighborhood</span>
               </span>
             </label>
             <input type="number" id="AveOccup" name="AveOccup" step="0.1" placeholder="e.g. 3.2" required />
@@ -473,7 +473,7 @@
           <i class="fas fa-calculator"></i> Calculate House Price
         </button>
         
-        <p class="example-values">Values should be based on California census block data</p>
+        <p class="example-values">Values should reflect the property's neighborhood characteristics</p>
       </form>
 
       {% if prediction_text %}
