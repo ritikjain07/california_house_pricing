@@ -1,3 +1,487 @@
-<h1>
-    Welcome to the home page    
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>California House Price Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: rgba(67, 97, 238, 0.1);
+      --secondary: #3a0ca3;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+      --warning: #f72585;
+      --info: #90e0ef;
+      --border: #dee2e6;
+      --text-muted: #6c757d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: var(--dark);
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 38%;
+      background: linear-gradient(165deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .logo i {
+      font-size: 26px;
+    }
+
+    .logo h2 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .sidebar h3 {
+      font-size: 18px;
+      margin-bottom: 22px;
+      font-weight: 500;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      margin-bottom: 30px;
+    }
+
+    .sidebar li {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+    }
+
+    .sidebar i {
+      font-size: 16px;
+    }
+    
+    .data-guide {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    
+    .data-guide h3 {
+      font-size: 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .data-guide p {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .main {
+      width: 62%;
+      padding: 40px;
+      background: white;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 15px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 35px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      background: white;
+      padding: 0 8px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 25px; /* Move icon a bit to the left */
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    
+    .unit-hint {
+      position: absolute;
+      bottom: -20px;
+      left: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.25s ease;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-light);
+    }
+    
+    /* Just add this CSS to your existing stylesheet section */
+    input[type="number"] {
+      padding-right: 40px; /* Increase right padding to avoid overlap */
+    }
+
+    /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      opacity: 1;
+      margin-right: 25px; /* Give space between arrow buttons and icon */
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      margin-left: 6px;
+      cursor: help;
+    }
+    
+    .tooltip i {
+      color: var(--info);
+      font-size: 14px;
+    }
+    
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 220px;
+      background-color: var(--dark);
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 400;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button i {
+      font-size: 18px;
+    }
+
+    button:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .prediction-result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: var(--light);
+      text-align: center;
+      font-weight: 500;
+      color: var(--dark);
+      border-left: 4px solid var(--success);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .prediction-result i {
+      color: var(--success);
+      font-size: 20px;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .example-values {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        max-width: 600px;
+      }
+      .sidebar, .main {
+        width: 100%;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div>
+        <div class="logo">
+          <i class="fas fa-home"></i>
+          <h2>CalHouse<span style="color: var(--success)">AI</span></h2>
+        </div>
+        <h3>About the Prediction</h3>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Uses California census data</li>
+          <li><i class="fas fa-check-circle"></i> Machine learning powered</li>
+          <li><i class="fas fa-check-circle"></i> Based on location factors</li>
+          <li><i class="fas fa-check-circle"></i> Accurate price estimations</li>
+        </ul>
+        
+        <div class="data-guide">
+          <h3><i class="fas fa-info-circle"></i> Input Guide</h3>
+          <p><strong>Median Income:</strong> In tens of thousands ($10,000s) of USD</p>
+          <p><strong>House Age:</strong> Age of the house in years</p>
+          <p><strong>Rooms/Bedrooms:</strong> Average per household in the block</p>
+          <p><strong>Population:</strong> Number of people in the census block</p>
+          <p><strong>Occupancy:</strong> Average people per household</p>
+          <p><strong>Latitude/Longitude:</strong> CA coordinates (Lat: 32.5-42.0, Long: -124.6 to -114.1)</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 20px; text-align: center;">© 2025 California Housing Predictor</p>
+      </div>
+    </div>
+
+    <div class="main">
+      <h1>California House Price Prediction</h1>
+      <p class="subtitle">Enter property details below to get an estimated house value</p>
+
+      <form action="{{ url_for('predict') }}" method="post">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="MedInc">
+              Median Income
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Enter in tens of thousands ($10,000s). Example: For $60,000 annual income, enter 6.0</span>
+              </span>
+            </label>
+            <input type="number" id="MedInc" name="MedInc" step="0.01" placeholder="e.g. 6.0" required />
+            <div class="input-icon"><i class="fas fa-dollar-sign"></i></div>
+            <span class="unit-hint">in $10,000s</span>
+          </div>
+
+          <div class="form-group">
+            <label for="HouseAge">
+              House Age
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Age of the house in years</span>
+              </span>
+            </label>
+            <input type="number" id="HouseAge" name="HouseAge" step="0.1" placeholder="e.g. 15.0" required />
+            <div class="input-icon"><i class="fas fa-clock"></i></div>
+            <span class="unit-hint">in years</span>
+          </div>
+
+          <div class="form-group">
+            <label for="AveRooms">
+              Average Rooms
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Average number of rooms per household in the block</span>
+              </span>
+            </label>
+            <input type="number" id="AveRooms" name="AveRooms" step="0.1" placeholder="e.g. 5.6" required />
+            <div class="input-icon"><i class="fas fa-door-open"></i></div>
+            <span class="unit-hint">per household</span>
+          </div>
+
+          <div class="form-group">
+            <label for="AveBedrms">
+              Average Bedrooms
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Average number of bedrooms per household in the block</span>
+              </span>
+            </label>
+            <input type="number" id="AveBedrms" name="AveBedrms" step="0.1" placeholder="e.g. 2.4" required />
+            <div class="input-icon"><i class="fas fa-bed"></i></div>
+            <span class="unit-hint">per household</span>
+          </div>
+
+          <div class="form-group">
+            <label for="Population">
+              Population
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Total number of people living in the block</span>
+              </span>
+            </label>
+            <input type="number" id="Population" name="Population" placeholder="e.g. 1200" required />
+            <div class="input-icon"><i class="fas fa-users"></i></div>
+            <span class="unit-hint">people in block</span>
+          </div>
+
+          <div class="form-group">
+            <label for="AveOccup">
+              Average Occupancy
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">Average number of people per household in the block</span>
+              </span>
+            </label>
+            <input type="number" id="AveOccup" name="AveOccup" step="0.1" placeholder="e.g. 3.2" required />
+            <div class="input-icon"><i class="fas fa-user-friends"></i></div>
+            <span class="unit-hint">people per house</span>
+          </div>
+
+          <div class="form-group">
+            <label for="Latitude">
+              Latitude
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">California latitude range: 32.5 to 42.0</span>
+              </span>
+            </label>
+            <input type="number" id="Latitude" name="Latitude" step="0.00001" placeholder="e.g. 37.88" required />
+            <div class="input-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <span class="unit-hint">decimal degrees</span>
+          </div>
+
+          <div class="form-group">
+            <label for="Longitude">
+              Longitude
+              <span class="tooltip">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip-text">California longitude range: -124.6 to -114.1 (negative values for west)</span>
+              </span>
+            </label>
+            <input type="number" id="Longitude" name="Longitude" step="0.00001" placeholder="e.g. -122.23" required />
+            <div class="input-icon"><i class="fas fa-map"></i></div>
+            <span class="unit-hint">decimal degrees</span>
+          </div>
+        </div>
+
+        <button type="submit">
+          <i class="fas fa-calculator"></i> Calculate House Price
+        </button>
+        
+        <p class="example-values">Values should be based on California census block data</p>
+      </form>
+
+      {% if prediction_text %}
+      <div class="prediction-result">
+        <i class="fas fa-chart-line"></i> {{ prediction_text }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
